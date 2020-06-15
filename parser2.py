@@ -1,19 +1,19 @@
 import requests
 import json
 cars = []
-data1=[]
+phones=[]
 headers = {'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36',
 'accept':'*/*' }
 def get_data():
     for i in range(1,4):
         URL = 'https://ab.onliner.by/sdapi/ab.api/search/vehicles?page='+str(i)+'&extended=true&limit=50'
-        resp=requests.get(URL,headers=headers)
-        data = resp.json()
+        cars_resp=requests.get(URL,headers=headers)
+        data = cars_resp.json()
         for car in range(0,50):
             cars.append(data['adverts'][car])
             phone = 'https://ab.onliner.by/sdapi/ab.api/vehicles/' + str(data['adverts'][car].get('id')) + '/phones'
-            resp1=requests.get(phone,headers=headers)
-            data1.append(resp1.json())
+            phones_resp=requests.get(phone,headers=headers)
+            phones.append(phones_resp.json())
 def parse_data():
     get_data()
     parsedCars = []
@@ -27,7 +27,7 @@ def parse_data():
         'odometer': str(cars[count].get('specs').get('odometer').get('value'))+' km',
         'price': str(cars[count].get('price').get('amount'))+' USD',
         'seller': cars[count].get('seller').get('name'),
-        'phones': data1[count]
+        'phones': phones[count]
                 }
         parsedCars.append(str(parsedCar))
     return parsedCars
