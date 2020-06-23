@@ -17,19 +17,21 @@ def get_data():
 def parse_data():
     get_data()
     parsedCars = []
-    for count in range(0,len(cars)):
+    count = 0
+    for car in cars:
         parsedCar={
-        'car': cars[count].get('title'),
-        'year': cars[count].get('specs').get('year'),
-        'engine': str(cars[count].get('specs').get('engine').get('capacity'))+' '+
-                   str(cars[count].get('specs').get('engine').get('type')),
-        'transmission': cars[count].get('specs').get('transmission'),
-        'odometer': str(cars[count].get('specs').get('odometer').get('value'))+' km',
-        'price': str(cars[count].get('price').get('amount'))+' USD',
-        'seller': cars[count].get('seller').get('name'),
+        'car': car.get('title'),
+        'year': car.get('specs').get('year'),
+        'engine': str(car.get('specs').get('engine').get('capacity'))+' '+
+                   str(car.get('specs').get('engine').get('type')),
+        'transmission': car.get('specs').get('transmission'),
+        'odometer': str(car.get('specs').get('odometer').get('value'))+' km',
+        'price': str(car.get('price').get('amount'))+' USD',
+        'seller': car.get('seller').get('name'),
         'phones': phones[count]
                 }
-        parsedCars.append(str(parsedCar))
+        count += 1
+        parsedCars.append(parsedCar)
     return parsedCars
 
 def start():
