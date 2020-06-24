@@ -44,3 +44,5 @@ class Parser:
             }
             count += 1
             self.parsed_data.append(parsedCar)
+
+#class Processor:
