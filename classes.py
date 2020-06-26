@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 
@@ -24,11 +26,10 @@ class Query_Manager:
 
 class Parser:
     parsed_data =[]
-    def __init__(self):
-        self.parse_data()
-        print(self.parsed_data)
-    def parse_data(self):
-        query = Query_Manager()
+    # def __init__(self):
+    #     self.parse_data()
+    #     print(self.parsed_data)
+    def parse_data(self, query):
         count = 0
         for car in query.cars:
             parsedCar = {
@@ -45,4 +46,9 @@ class Parser:
             count += 1
             self.parsed_data.append(parsedCar)
 
-#class Processor:
+class Processor:
+    parsing = Parser()
+    parsing.parse_data(query=Query_Manager())
+    with open('onliner_cars_classes.json', 'w') as f:
+        for car in parsing.parsed_data:
+            json.dump(car, f,ensure_ascii=False)
